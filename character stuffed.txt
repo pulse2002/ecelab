@@ -1,0 +1,36 @@
+// Write a program for a HDLC frame to perform Character Stuffing
+
+#include<stdio.h>
+#include<string.h>
+#define MAX 1000
+main()
+{
+int si=0, di=0, i, ptr=0;
+char begin[] = "DLE STX", end[] = "DLE ETX";
+char src[MAX], dest[MAX];
+printf("Enter frame data in ASCII: \n");
+gets(src);
+strcpy(dest, begin);
+
+di = strlen(begin);
+while(src[si] != '\0')
+{
+
+if(src[si] == 'D' && src[si+1] == 'L' && src[si+2] == 'E')
+
+{
+
+dest[di+0] = 'D', dest[di+1] = 'L', dest[di+2] = 'E'; dest[di+3] = 'D', dest[di+4] = 'L', dest[di+5] = 'E';
+di += 6;
+si += 3;
+}
+
+else
+
+}
+
+dest[di] = '\0'; strcat(dest,end);
+
+dest[di++] = src[si++];
+
+printf("\n Character stuffed frame is: %s \n\n", dest);
