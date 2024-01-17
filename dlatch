@@ -1,0 +1,17 @@
+module dlatch(e,d,q); 
+input e,d; 
+output reg q; 
+always@(e or d) 
+begin 
+if (e) |end 
+q<=d; |endmodule 
+testbench 
+module dlatch_tb; 
+reg e,d; 
+wire q; 
+dlatch d1(.e(e), .d(d), .q(q)); 
+initial begin 
+d=0; e=0; 
+end 
+always #3 e=~e; | initial #1000 $stop; 
+always #3 d=~d; |endmodule
