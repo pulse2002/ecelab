@@ -1,0 +1,29 @@
+module srlatch(en,s,r,q,qb); 
+input en,s,r; 
+output q,qb; 
+reg q; 
+always@(en,s,r) 
+begin 
+if(en==0) 
+q<=1'b0; 
+else 
+case ({s,r}) 
+2'b00:q<=q; 
+2'b01:q<=0;
+2'b10:q<=1; 
+2'b11:q<=1'bx; 
+endcase 
+end 
+assign qb=~q; 
+endmodule 
+testbench: 
+module srlatch_tb; 
+reg en,s,r; 
+wire q,qb; 
+srlatch s1 (en,s,r,q,qb); 
+initial begin 
+en=0;s=0;r=0;#10; 
+en=1;s=0;r=0;#10; 
+en=1;s=0;r=1;#10; 
+en=1;s=1;r=0;#10; end 
+en=1;s=1;r=1;#10; endmodule
