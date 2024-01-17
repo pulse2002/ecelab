@@ -1,0 +1,31 @@
+module dff_sync_reset (data,clk,reset,q);
+input data, clk, reset; 
+output reg q; 
+always@ (posedge clk) 
+if (~reset) begin 
+q <= 1'b0; 
+end else begin 
+q <= data; 
+end 
+endmodule 
+testbench: 
+module tb_dff(); 
+reg data; 
+reg clk; 
+reg reset; 
+wire q;
+dff_sync_reset dut(data,clk,reset,q); 
+initial begin 
+clk=0; 
+forever #10 clk = ~clk; 
+end 
+initial begin 
+reset=1; 
+data <= 0; 
+#100; 
+reset=0; 
+data <= 1; 
+#100; |#100 
+data <= 0; |$finish; 
+#100; | end 
+data <= 1; | endmodule
