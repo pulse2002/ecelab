@@ -1,0 +1,36 @@
+ 
+module alu_32_case(y,a,b,f); 
+input [31:0] a,b; 
+input [2:0]f; 
+output reg [31:0]y; 
+always@(a,b,f) 
+begin 
+case(f) 
+3'b000:y=a&b; 
+3'b001:y=a|b; 
+3'b010:y=~(a&b); 
+3'b011:y=(a|b); 
+3'b100:y=a+b; 
+3'b101:y=a-b; 
+3'b110:y=a*b; 
+default:y=32'bX; 
+endcase 
+end 
+endmodule 
+testbench: 
+module alu_32bit_tb_case; 
+reg [31:0] a,b; 
+reg [2:0]f; 
+wire [31:0]y; 
+alu_32_case test2(.y(y),.a(a),.b(b),.f(f)); 
+initial begin 
+a=32'h00000000; 
+b=32'hFFFFFFFF; 
+#10;f=3'b000; 
+#10;f=3'b001; 
+#10;f=3'b010; 
+#10;f=3'b100; 
+end 
+initial 
+#50 $finish; 
+endmodule
